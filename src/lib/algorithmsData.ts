@@ -21,7 +21,7 @@ export const ALGORITHMS_DATA: Record<string, AlgorithmCategoryData> = {
   sort: {
     label: 'Sorting Algorithms',
     icon: Shuffle,
-    basePath: '/sort',
+    basePath: '/sort', // Ensured this path is correct
     algorithms: [
       {
         value: 'bubble-sort',
@@ -58,7 +58,7 @@ export const ALGORITHMS_DATA: Record<string, AlgorithmCategoryData> = {
   search: {
     label: 'Searching Algorithms',
     icon: Search,
-    basePath: '/search',
+    basePath: '/search', // Ensured this path is correct
     algorithms: [
       {
         value: 'linear-search',
@@ -94,3 +94,4 @@ export const ALGORITHMS_DATA: Record<string, AlgorithmCategoryData> = {
     ]
   }
 };
+
