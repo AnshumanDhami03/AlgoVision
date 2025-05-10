@@ -46,7 +46,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, posterUrl, altText 
       <Image
         src={posterUrl}
         alt={altText}
-        layout="fill"
+        fill // Changed from layout="fill" to fill for Next.js 13+
         objectFit="cover"
         className="transition-opacity duration-300 group-hover:opacity-0"
         data-ai-hint="algorithm animation"

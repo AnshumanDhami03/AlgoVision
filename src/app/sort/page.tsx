@@ -1,6 +1,4 @@
 
-// Removed 'use client' as VideoPlayer is now externalized.
-
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,7 +31,7 @@ export default function SortingCategoryPage() {
         {sortCategory.algorithms.map((algo) => (
           <Card key={algo.value} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
              {algo.videoUrl && (
-              <VideoPlayer videoUrl={algo.videoUrl} posterUrl={`https://picsum.photos/seed/${algo.value}/400/200`} />
+              <VideoPlayer videoUrl={algo.videoUrl} posterUrl={`https://picsum.photos/seed/${algo.value}/400/200`} altText={`${algo.label} animation preview`} />
             )}
             <CardHeader className="pt-4">
               <CardTitle className="text-xl flex items-center gap-2">
@@ -58,3 +56,4 @@ export default function SortingCategoryPage() {
     </div>
   );
 }
+

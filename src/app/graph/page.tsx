@@ -1,6 +1,4 @@
 
-'use client'; // Add 'use client' if keeping VideoPlayer inline, otherwise remove if VideoPlayer is externalized.
-
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,15 +6,6 @@ import { Button } from '@/components/ui/button';
 import { ALGORITHMS_DATA } from '@/lib/algorithmsData';
 import { ChevronRight } from 'lucide-react';
 import VideoPlayer from '@/components/ui/video-player'; // Import the externalized VideoPlayer
-
-// Metadata should be defined outside the component if it's static, or exported if dynamic
-// For this page, it can be static as it doesn't depend on params.
-// However, Next.js expects `export const metadata` for static metadata.
-// Since this is a default export component, let's make metadata export const.
-// No, `export const metadata` is the correct way for App Router.
-
-// The 'use client' directive makes the entire file a client component.
-// If VideoPlayer is the only part needing client-side hooks, it's better to extract it.
 
 export const metadata: Metadata = {
   title: "Graph Algorithms | AlgoVision",
@@ -42,7 +31,7 @@ export default function GraphCategoryPage() {
         {graphCategory.algorithms.map((algo) => (
           <Card key={algo.value} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
              {algo.videoUrl && (
-              <VideoPlayer videoUrl={algo.videoUrl} posterUrl={`https://picsum.photos/seed/${algo.value}/400/200`} />
+              <VideoPlayer videoUrl={algo.videoUrl} posterUrl={`https://picsum.photos/seed/${algo.value}/400/200`} altText={`${algo.label} animation preview`} />
             )}
             <CardHeader className="pt-4">
               <CardTitle className="text-xl flex items-center gap-2">
