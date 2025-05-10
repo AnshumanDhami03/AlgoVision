@@ -1,61 +1,22 @@
 
+'use client'; // Add 'use client' if keeping VideoPlayer inline, otherwise remove if VideoPlayer is externalized.
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ALGORITHMS_DATA } from '@/lib/algorithmsData';
 import { ChevronRight } from 'lucide-react';
-import Image from 'next/image'; // Import next/image
-import React from 'react'; // Import React
+import VideoPlayer from '@/components/ui/video-player'; // Import the externalized VideoPlayer
 
-// VideoPlayer component to handle hover video playback
-const VideoPlayer = ({ videoUrl, posterUrl }: { videoUrl: string; posterUrl: string }) => {
-  const videoRef = React.useRef<HTMLVideoElement>(null);
+// Metadata should be defined outside the component if it's static, or exported if dynamic
+// For this page, it can be static as it doesn't depend on params.
+// However, Next.js expects `export const metadata` for static metadata.
+// Since this is a default export component, let's make metadata export const.
+// No, `export const metadata` is the correct way for App Router.
 
-  const handleMouseEnter = () => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => console.log("Video play failed:", error));
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0; // Reset video to start
-    }
-  };
-
-  return (
-    <div 
-      className="relative w-full h-40 rounded-t-md overflow-hidden group cursor-pointer bg-muted"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <video
-        ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-        src={videoUrl}
-        loop
-        muted
-        playsInline
-        preload="none" // Changed from auto to none
-        poster={posterUrl} // Use poster for initial display
-      />
-      {/* Static image as a fallback or initial display, shown when video is not playing or loading */}
-      <Image
-        src={posterUrl}
-        alt="Algorithm animation placeholder"
-        layout="fill"
-        objectFit="cover"
-        className="transition-opacity duration-300 group-hover:opacity-0"
-        data-ai-hint="algorithm animation"
-      />
-       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <ChevronRight className="h-12 w-12 text-white opacity-70 transform scale-0 group-hover:scale-100 transition-transform duration-300 ease-out" />
-      </div>
-    </div>
-  );
-};
+// The 'use client' directive makes the entire file a client component.
+// If VideoPlayer is the only part needing client-side hooks, it's better to extract it.
 
 export const metadata: Metadata = {
   title: "Graph Algorithms | AlgoVision",
@@ -106,3 +67,4 @@ export default function GraphCategoryPage() {
     </div>
   );
 }
+
