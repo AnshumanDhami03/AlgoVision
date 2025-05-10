@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { ALGORITHMS_DATA } from '@/lib/algorithmsData';
 import { ChevronRight } from 'lucide-react';
-import VideoPlayer from '@/components/ui/video-player'; // Import the externalized VideoPlayer
+// Removed import for VideoPlayer as it's no longer used
 
 export const metadata: Metadata = {
   title: "Searching Algorithms | AlgoVision",
@@ -30,9 +30,7 @@ export default function SearchingCategoryPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {searchCategory.algorithms.map((algo) => (
           <Card key={algo.value} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            {algo.videoUrl && (
-              <VideoPlayer videoUrl={algo.videoUrl} posterUrl={`https://picsum.photos/seed/${algo.value}/400/200`} altText={`${algo.label} animation preview`} />
-            )}
+            {/* Removed VideoPlayer component */}
             <CardHeader className="pt-4">
               <CardTitle className="text-xl flex items-center gap-2">
                 {algo.icon && <algo.icon className="h-5 w-5 text-muted-foreground" />}
