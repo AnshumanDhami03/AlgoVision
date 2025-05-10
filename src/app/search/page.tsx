@@ -31,6 +31,7 @@ export default function SearchingCategoryPage() {
           <Card key={algo.value} className="flex flex-col">
             <CardHeader>
               <CardTitle className="text-xl flex items-center gap-2">
+                {algo.icon && <algo.icon className="h-5 w-5 text-muted-foreground" />}
                 {algo.label}
               </CardTitle>
             </CardHeader>

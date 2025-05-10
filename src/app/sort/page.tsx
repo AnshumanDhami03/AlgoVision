@@ -31,7 +31,7 @@ export default function SortingCategoryPage() {
           <Card key={algo.value} className="flex flex-col">
             <CardHeader>
               <CardTitle className="text-xl flex items-center gap-2">
-                 {/* Icon can be added here if desired, e.g., a generic sort icon or a unique one per algo */}
+                {algo.icon && <algo.icon className="h-5 w-5 text-muted-foreground" />}
                 {algo.label}
               </CardTitle>
             </CardHeader>
