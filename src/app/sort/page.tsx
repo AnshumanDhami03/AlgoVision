@@ -5,6 +5,57 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { ALGORITHMS_DATA } from '@/lib/algorithmsData';
 import { ChevronRight } from 'lucide-react';
+import Image from 'next/image'; // Import next/image
+
+// VideoPlayer component to handle hover video playback
+const VideoPlayer = ({ videoUrl, posterUrl }: { videoUrl: string; posterUrl: string }) => {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => console.log("Video play failed:", error));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0; // Reset video to start
+    }
+  };
+
+  return (
+    <div 
+      className="relative w-full h-40 rounded-t-md overflow-hidden group cursor-pointer bg-muted"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <video
+        ref={videoRef}
+        className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+        src={videoUrl}
+        loop
+        muted
+        playsInline
+        preload="none" // Changed from auto to none
+        poster={posterUrl} // Use poster for initial display
+      />
+      {/* Static image as a fallback or initial display, shown when video is not playing or loading */}
+      <Image
+        src={posterUrl}
+        alt="Algorithm animation placeholder"
+        layout="fill"
+        objectFit="cover"
+        className="transition-opacity duration-300 group-hover:opacity-0"
+        data-ai-hint="algorithm animation"
+      />
+       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <ChevronRight className="h-12 w-12 text-white opacity-70 transform scale-0 group-hover:scale-100 transition-transform duration-300 ease-out" />
+      </div>
+    </div>
+  );
+};
+
 
 export const metadata: Metadata = {
   title: "Sorting Algorithms | AlgoVision",
@@ -28,15 +79,18 @@ export default function SortingCategoryPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortCategory.algorithms.map((algo) => (
-          <Card key={algo.value} className="flex flex-col">
-            <CardHeader>
+          <Card key={algo.value} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+             {algo.videoUrl && (
+              <VideoPlayer videoUrl={algo.videoUrl} posterUrl={`https://picsum.photos/seed/${algo.value}/400/200`} />
+            )}
+            <CardHeader className="pt-4">
               <CardTitle className="text-xl flex items-center gap-2">
                 {algo.icon && <algo.icon className="h-5 w-5 text-muted-foreground" />}
                 {algo.label}
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
-              <p className="text-sm text-muted-foreground">{algo.description}</p>
+              <CardDescription className="text-sm text-muted-foreground">{algo.description}</CardDescription>
             </CardContent>
             <CardFooter>
               <Button asChild className="w-full">
