@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shuffle, Search, Share2, MousePointerClick } from 'lucide-react';
+import { MousePointerClick } from 'lucide-react';
 import { ALGORITHMS_DATA } from "@/lib/algorithmsData";
 
 
