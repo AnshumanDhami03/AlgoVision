@@ -12,37 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Shuffle, Search, Share2 } from 'lucide-react'; // Added Share2 for Graph icon
-
-const ALGORITHMS_DATA = {
-  sort: {
-    label: 'Sorting Algorithms',
-    icon: Shuffle,
-    algorithms: [
-      { value: 'bubble-sort', label: 'Bubble Sort' },
-      { value: 'selection-sort', label: 'Selection Sort' },
-      { value: 'insertion-sort', label: 'Insertion Sort' },
-      { value: 'merge-sort', label: 'Merge Sort' },
-      { value: 'quick-sort', label: 'Quick Sort' },
-    ]
-  },
-  search: {
-    label: 'Searching Algorithms',
-    icon: Search,
-    algorithms: [
-      { value: 'linear-search', label: 'Linear Search' },
-      { value: 'binary-search', label: 'Binary Search' },
-    ]
-  },
-  graph: {
-    label: 'Graph Algorithms (MST)',
-    icon: Share2,
-    algorithms: [
-        { value: 'prims-algorithm', label: "Prim's Algorithm" },
-        { value: 'kruskals-algorithm', label: "Kruskal's Algorithm" },
-    ]
-  }
-};
+import { ALGORITHMS_DATA } from '@/lib/algorithmsData'; // Updated import
 
 export default function AlgorithmSelector() {
   const router = useRouter();
@@ -82,7 +52,7 @@ export default function AlgorithmSelector() {
               <categoryData.icon className="h-4 w-4" /> {categoryData.label}
             </SelectLabel>
             {categoryData.algorithms.map((algo) => (
-              <SelectItem key={`${categoryKey}-${algo.value}`} value={`/${categoryKey}/${algo.value}`} className="text-xs sm:text-sm"> {/* Responsive text size */}
+              <SelectItem key={`${categoryKey}-${algo.value}`} value={`${categoryData.basePath}/${algo.value}`} className="text-xs sm:text-sm"> {/* Responsive text size, using basePath */}
                 {algo.label}
               </SelectItem>
             ))}
